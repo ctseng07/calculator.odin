@@ -2,7 +2,9 @@ let previousValue = '';
 let currentValue = '';
 let operator = '';
 
-//query selectors
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//query selectors//
 //screen display
 const previous = document.querySelector("#previous");
 const current = document.querySelector("#current");
@@ -15,33 +17,27 @@ const deleteBtn = document.querySelector("#deleteBtn");
 const decimalBtn = document.querySelector("#decimalBtn");
 const equalBtn = document.querySelector("#equalBtn");
 
-
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//button choices//
 
 numberBtns.forEach((number) =>
-    number.addEventListener('click', function (e) {
+    number.addEventListener('click', (e) => {
         numSelection(e.target.textContent);
         current.textContent = currentValue;
     }));
 
+function numSelection(num) {
+    currentValue += num
+};
+
+
 operatorBtns.forEach((op) =>
-    op.addEventListener('click', function (e) {
+    op.addEventListener('click', (e) => {
         operatorSelection(e.target.textContent)
         previous.textContent = previousValue + ' ' + operator;
         current.textContent = currentValue;
     }));
-
-equalBtn.addEventListener('click', function () {
-    if (currentValue != '' && previousValue != '') {
-        operate()
-        previous.textContent = '';
-    } if (current.textContent = previousValue);
-    console.log(equalBtn);
-});
-
-
-function numSelection(num) {
-    currentValue += num
-};
 
 function operatorSelection(op) {
     operator = op;
@@ -49,32 +45,16 @@ function operatorSelection(op) {
     currentValue = '';
 };
 
-decimalBtn.addEventListener('click', addDecimal);
+equalBtn.addEventListener('click', () => {
+    if (currentValue != '' && previousValue != '') {
+        operate()
+        previous.textContent = '';
+    } if (current.textContent = previousValue);
+});
 
-// decimalBtn.addEventListener('click', function () {
-//     addDecimal();
-// });
-
-clearBtn.addEventListener('click', clearDisplay);
-
-function clearDisplay() {
-    currentValue = '';
-    previousValue = '';
-    operator = '';
-    current.innerHTML = "";
-    previous.innerHTML = "";
-};
-
-function backSpace() {
-    current.innerText = current.innerText.slice(0, -1);
-};
-
-deleteBtn.addEventListener('click', backSpace);
-
-// if (equalBtn == true) {
-// } else {
-//     operator == "";
-// }
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//functionality//
 
 function operate() {
     previousValue = Number(previousValue); //used this to convert to a number
@@ -82,18 +62,12 @@ function operate() {
 
     if (operator === "+") {
         previousValue += currentValue
-        // add();
     } else if (operator === "-") {
         previousValue -= currentValue
-        // substract();
     } else if (operator === "x") {
         previousValue *= currentValue;
-        // multiply();
     } else {
         previousValue /= currentValue;
-        //     // divide()
-        // } else {
-        //     return null
     }
     // previousValue = roundNumber(previousValue);
     previousValue = previousValue.toString();  //changing back into string
@@ -104,43 +78,55 @@ function roundNumber(num) {
     return Math.random(num * 1000) / 1000;
 };
 
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//clear and delete//
+function clearDisplay() {
+    currentValue = '';
+    previousValue = '';
+    operator = '';
+    current.innerHTML = "";
+    previous.innerHTML = "";
+};
+
+clearBtn.addEventListener('click', clearDisplay);
+
+
+function backSpace() {
+    current.innerText = current.innerText.slice(0, -1);
+};
+
+deleteBtn.addEventListener('click', backSpace);
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
 function addDecimal() {
     if (current.textContent.includes('.')) return
     currentValue.textContent += '.';
-}
+};
 
-// function addDecimal() {
-//     if (!currentValue.includes('.')) {
-//         currentValue += '.';
-//     }
-// }
+decimalBtn.addEventListener('click', addDecimal);
 
+/* 1. have equal button stop after one click
+    2. fix bug with decimal code and stop after one click
+    3. figure out how to have entries continue when pushing multiple operators
+    4. find a way to have current value to continue or delete after equal button is pushed // equation sticks on new entry after equal button
+/*
 
+/* store current number into first operand;
+then
+if add is pressed
+    then change operator choice to add
+    etc
+clear current number
+update current number display
 
-// function operate(operator, a, b) {
-//     a = Number(a);
-//     b = Number(b);
-//     switch (operator) {
-//         case "+":
-//             return add(a, b);
-//         case "-":
-//             return substract(a, b);
-//         case "×":
-//             return multiply(a, b);
-//         case "÷":
-//             return divide(a, b);
-//         default:
-//             return null
-
-//     }
-// }
-// if (equalBtn == true) {
-// } else {
-//     operator == "";
-// }
+*/
 
 
-// // //operator functions
+// let a = 1;
+// let b = 2;
+
 // function add(a, b) {
 //     return a + b
 // };
@@ -160,20 +146,43 @@ function addDecimal() {
 //         return a / b
 // };
 
-// decimalBtn.addEventListener('click', numChoice)
+// console.log(add(a, b));
+// console.log(substract(a, b));
+// console.log(multiply(a, b));
+// console.log(divide(a, b));
 
-// function decimal(number) {
-//     if (number === '.' && current.textContent.includes('.')) return
-//     current = current.toString() + number.toString()
+// function operate(operator, a, b) {
+//     a = Number(a);
+//     b = Number(b);
+//     switch (operator) {
+//         case "+":
+//             return add(a, b);
+//         case "-":
+//             return substract(a, b);
+//         case "×":
+//             return multiply(a, b);
+//         case "÷":
+//             return divide(a, b);
+//         default:
+//             return null
+
+//     }
 // }
 
+// function operate(a, operator, b) {
+//     if (operator === "+") {
+//         return add(a, b);
+//     } else if (operator === "-") {
+//         return subtract(a, b);
+//     } else if (operator === "x") {
+//         return multiply(a, b);
+//     } else {
+//         return divide(a, b);
+//     }
+// };
 
-/* store current number into first operand;
-then
-if add is pressed
-    then change operator choice to add
-    etc
-clear current number
-update current number display
+// console.log(operate(a, '+', b));
+// console.log(operate(a, "-" b));
+// console.log(operate(a, 'x', b));
+// console.log(operate(a, '/', b));
 
-*/
