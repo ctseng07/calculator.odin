@@ -100,7 +100,6 @@ function operate() {
         }
         previousValue /= currentValue;
     }
-
     currentValue = roundNumber(previousValue);
     previousValue = previousValue.toString();  //changing back into string
     currentValue = previousValue.toString();  //changing back into string
@@ -146,12 +145,13 @@ deleteBtn.addEventListener('click', backSpace);
 
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
-decimalBtn.addEventListener('click', () => {
-    if (current.textContent.includes('.')) {
-        return;
+// decimalBtn.addEventListener('click', () => {
+//     if (current.textContent.includes('.')) {
+//         return;
 
-    } else current.textContent += '.';
-});
+//     } else current.textContent += '.';
+//     console.log(currentValue);
+// });
 
 decimalBtn.addEventListener('click', addDecimal);
 
@@ -160,6 +160,7 @@ function addDecimal() {
         currentValue += '.';
         current.textContent = currentValue;
     };
+    console.log(currentValue);
 };
 
 /* 1. have equal button stop after one click
@@ -176,7 +177,7 @@ if add is pressed
 clear current number
 update current number display
 
-// */
+*/
 // let previousValue = '';
 // let currentValue = '';
 // let operator = '';
